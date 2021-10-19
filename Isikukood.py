@@ -1,23 +1,18 @@
 ik=""
-while len(ik)!=11 or ik.isdigit()!=True:
-    try:
-        ik=input("Isikukood:")
-    except ValueError:
-        print("Viga andmetega!")
 print("Isikukoodi analüüs:".center(50,"-"))
-print("Esimene sümbol:")
-ik_list=list(ik) #["4","7","6","1","0"..]
-if int(ik_list[0]) not in [1,2,3,4,5,6]:
-    print(ik_list[0]," - ei ole õige!")
-else:
-    print(ik_list[0]," - õige arv!")
-    kuu=ik_list[3]+ik_list[4] #1+0=10
-    kuu=int(kuu)
-    if kuu>0 and kuu<13:
-        print(ik_list[3],ik_list[4],"õige kuu!")
+while len(ik)!=11 or ik.isdigit()!=True or int(list(ik)[0]) not in [1,2,3,4,5,6] or int(list(ik)[3]+list(ik)[4])<0 or int(list(ik)[3]+list(ik)[4])>13 or jaak!=int(list(ik)[10]): #!!!jaak!=int(list(ik)[10])!!!
+    try:        
+        ik=input("Isikukood:")
+        ik_list=list(ik)
+        if int(ik_list[0]) not in [1,2,3,4,5,6]: print("Vale esimene number!")
+        kuu=int(ik_list[3]+ik_list[4]) #1+0=10
+        if kuu>0 and kuu<13:
+            print(ik_list[3],ik_list[4],"õige kuu!")
+        else:
+            print(ik_list[3],ik_list[4]," Vale kuu!!!")
         paev=int(ik_list[5]+ik_list[6])
-        #1,3,5,7,8,10,12    - 31 päev #2,4,6,9,11    28-29,30-päeva
-        #1,2 -"18", 3,4 - "19" , 5,6 - "20" +ik_list[1]+ik_list[2]
+                #1,3,5,7,8,10,12    - 31 päev #2,4,6,9,11    28-29,30-päeva
+                #1,2 -"18", 3,4 - "19" , 5,6 - "20" +ik_list[1]+ik_list[2]
         if int(ik_list[0])==1 or int(ik_list[0])==2:
             aasta=int("18"+ik_list[1]+ik_list[2])
         elif int(ik_list[0])==3 or int(ik_list[0])==4:
@@ -32,30 +27,36 @@ else:
             print(ik_list[5],ik_list[6],"õige päev! 29 vebr.")
         else:
             print(ik_list[5],ik_list[6],"Vale päev! ")
-    else:
-        print(ik_list[3],ik_list[4]," Vale kuu!!!")
+        Summa=0
+        for i in range(1,11):
+            if i<10:
+                Summa+=i*int(ik_list[i-1])
+            else:
+                Summa+=(i-9)*int(ik_list[i-1])
+            print("Summa: ",Summa)
+        jaak=Summa//11
+        if jaak==10: #II astme kaal: 3 4 5 6 7 8 9 1 2 3
+            Summa=0
+            for i in range(3,13):
+                if i<=9:
+                    Summa+=i*int(ik_list[i-1])
+                else:
+                    Summa+=(i-9)*int(ik_list[i-1])
+        jaak=Summa//11
+        jaak=Summa-jaak*11
+        print("Konrtollnumber: ",jaak)
+        if jaak==int(ik_list[10]):
+            print("Isikukood on õige!!!!")
+        else:
+            print("Isikukood on vale!!!!")
+    except ValueError:
+       
+        print("Viga andmetega!")
+
+
+
+
 #I astme kaal: 1 2 3 4 5 6 7 8 9 1
 #Summa = 1×3 + 2×7 + 3×6 + 4×0 + 5×5 + 6×0 + 7×3 + 8×0 + 9×2 + 1×9 = 108.
-Summa=0
-for i in range(1,11):
-    if i<10:
-        Summa+=i*int(ik_list[i-1])
-    else:
-        Summa+=(i-9)*int(ik_list[i-1])
-print("Summa: ",Summa)
-jaak=Summa//11
-if jaak==10: #II astme kaal: 3 4 5 6 7 8 9 1 2 3
-    Summa=0
-    for i in range(3,13):
-        if i<=9:
-            Summa+=i*int(ik_list[i-1])
-        else:
-            Summa+=(i-9)*int(ik_list[i-1])
-    jaak=Summa//11
-jaak=Summa-jaak*11
-print("Konrtollnumber: ",jaak)
-if jaak==int(ik_list[10]):
-    print("Isikukood on õige!!!!")
-else:
-    print("Isikukood on vale!!!!")
+
 
