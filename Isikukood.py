@@ -35,15 +35,17 @@ while len(ik)!=11 or ik.isdigit()!=True or int(list(ik)[0]) not in [1,2,3,4,5,6]
                 Summa+=(i-9)*int(ik_list[i-1])
             print("Summa: ",Summa)
         jaak=Summa//11
+        print(jaak)
         if jaak==10: #II astme kaal: 3 4 5 6 7 8 9 1 2 3
             Summa=0
             for i in range(3,13):
+                print(i)
                 if i<=9:
-                    Summa+=i*int(ik_list[i-1])
+                    Summa+=(i)*int(ik_list[i-3])
                 else:
-                    Summa+=(i-9)*int(ik_list[i-1])
-        jaak=Summa//11
-        jaak=Summa-jaak*11
+                    Summa+=(i-9)*int(ik_list[i-3])
+            jaak=Summa//11
+            jaak=Summa-jaak*11
         print("Konrtollnumber: ",jaak)
         if jaak==int(ik_list[10]):
             print("Isikukood on õige!!!!")
